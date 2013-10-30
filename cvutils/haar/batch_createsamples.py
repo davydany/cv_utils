@@ -16,13 +16,13 @@ def createsample(image, args):
         "bgthresh" : args.bgthresh,
         "inv" : args.inv,
         "randinv" : args.randinv,
-        "maxidev" : args.maxidev,
-        "maxxangle" : args.maxxangle,
-        "maxyangle" : args.maxyangle,
-        "maxzangle" : args.maxzangle,
+        "maxidev" : args.maxidev or 40,
+        "maxxangle" : args.maxxangle or 1.1,
+        "maxyangle" : args.maxyangle or 1.1,
+        "maxzangle" : args.maxzangle or 0.5,
         "show" : args.show,
-        "width" : args.width,
-        "height" : args.height,
+        "w" : args.width or 24,
+        "h" : args.height or 24,
         "info" : args.info
     }
     vector_filename = os.path.join(os.path.dirname(image), "%s.vec" % os.path.splitext(os.path.basename(image))[0])
@@ -35,7 +35,7 @@ def createsample(image, args):
             else:
                 process_args.append("-%s" % k)
                 process_args.append("%s" % v)
-    #print ' '.join(process_args)
+    print ' '.join(process_args)
     subprocess.call(process_args)
 
 
@@ -77,7 +77,7 @@ def main():
     verify_installed("opencv_createsamples")
 
 
-    parser = argparse.ArgumentParser(description="Allows creating samples in a folder in a batch automated way.")
+    parser = argparse.ArgumentParser(prog='dcv_createsamples', description="Allows creating samples in a folder in a batch automated way.")
     parser.add_argument('positives', help="Path to folder containing source images, "
                                           "or file listing paths to source images."
                                           "Source object image(s) - (e.g., a company logo).")
@@ -90,8 +90,8 @@ def main():
                                             'All pixels withing bgcolor-bgthresh and bgcolor+bgthresh '
                                             'range are interpreted as transparent.')
     parser.add_argument('--bgthresh', help='background_color_threshold')
-    parser.add_argument('--inv', help='If specified, colors will be inverted.')
-    parser.add_argument('--randinv', help='If specified, colors will be inverted randomly.')
+    parser.add_argument('--inv', help='If specified, colors will be inverted.', action='store_true')
+    parser.add_argument('--randinv', help='If specified, colors will be inverted randomly.', action='store_true')
     parser.add_argument('--maxidev', help='Maximal intensity deviation of pixels in foreground samples.')
     parser.add_argument('--maxxangle', help='max_x_rotation_angle')
     parser.add_argument('--maxyangle', help='max_y_rotation_angle')
