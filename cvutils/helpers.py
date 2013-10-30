@@ -53,7 +53,9 @@ def is_installed(cmd):
     return found
 
 def verify_installed(cmd):
-
+    """
+    Verifies that the 'cmd' provided is found, or raises an exception if it isn't.
+    """
     if type(cmd) == str:
         if not is_installed(cmd):
             raise IOError("'%s' is not installed in your system. Please install before continuing." % cmd)
