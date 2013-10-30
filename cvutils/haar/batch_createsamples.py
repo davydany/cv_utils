@@ -16,10 +16,10 @@ def createsample(image, args):
         "bgthresh" : args.bgthresh,
         "inv" : args.inv,
         "randinv" : args.randinv,
-        "maxidev" : args.maxidev or 40,
-        "maxxangle" : args.maxxangle or 1.1,
-        "maxyangle" : args.maxyangle or 1.1,
-        "maxzangle" : args.maxzangle or 0.5,
+        "maxidev" : args.maxidev,
+        "maxxangle" : args.maxxangle,
+        "maxyangle" : args.maxyangle,
+        "maxzangle" : args.maxzangle,
         "show" : args.show,
         "w" : args.width or 24,
         "h" : args.height or 24,
@@ -77,30 +77,33 @@ def main():
     verify_installed("opencv_createsamples")
 
 
-    parser = argparse.ArgumentParser(prog='dcv_createsamples', description="Allows creating samples in a folder in a batch automated way.")
+    parser = argparse.ArgumentParser(prog='dcv_createsamples',
+                                     description="As a wrapper for opencv_createsamples, "
+                                                 "this utility allows creating samples in a folder "
+                                                 "in a batch automated way.")
     parser.add_argument('positives', help="Path to folder containing source images, "
                                           "or file listing paths to source images."
                                           "Source object image(s) - (e.g., a company logo).")
     parser.add_argument('--bg', help='Background description file; contains a list of images which are used as a background for randomly distorted versions of the object.')
-    parser.add_argument('--num', help='Number of positive samples to generate.')
+    parser.add_argument('--num', help='Number of positive samples to generate.', default=1000)
     parser.add_argument('--bgcolor', help='Background color (currently grayscale images are assumed);'
                                             'The background color denotes the transparent color.'
                                             'Since there might be compression artifacts, '
                                             'the amount of color tolerance can be specified by -bgthresh.'
                                             'All pixels withing bgcolor-bgthresh and bgcolor+bgthresh '
                                             'range are interpreted as transparent.')
-    parser.add_argument('--bgthresh', help='background_color_threshold')
+    parser.add_argument('--bgthresh', help='background_color_threshold', default=80)
     parser.add_argument('--inv', help='If specified, colors will be inverted.', action='store_true')
     parser.add_argument('--randinv', help='If specified, colors will be inverted randomly.', action='store_true')
-    parser.add_argument('--maxidev', help='Maximal intensity deviation of pixels in foreground samples.')
-    parser.add_argument('--maxxangle', help='max_x_rotation_angle')
-    parser.add_argument('--maxyangle', help='max_y_rotation_angle')
-    parser.add_argument('--maxzangle', help='max_z_rotation_angle')
+    parser.add_argument('--maxidev', help='Maximal intensity deviation of pixels in foreground samples.', default=40)
+    parser.add_argument('--maxxangle', help='max_x_rotation_angle', default=1.1)
+    parser.add_argument('--maxyangle', help='max_y_rotation_angle', default=1.1)
+    parser.add_argument('--maxzangle', help='max_z_rotation_angle', default=0.5)
     parser.add_argument('--show', help='Useful debugging option. If specified, each sample will be shown. '
                                        'Pressing Esc will continue the samples creation process without.',
                         action="store_true")
-    parser.add_argument('--width', help='Width (in pixels) of the output samples.')
-    parser.add_argument('--height', help='Height (in pixels) of the output samples.')
+    parser.add_argument('--width', help='Width (in pixels) of the output samples.', default=24)
+    parser.add_argument('--height', help='Height (in pixels) of the output samples.', default=24)
     parser.add_argument('---info', help='Description file of marked up images collection.')
     args = parser.parse_args()
 

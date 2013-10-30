@@ -13,7 +13,8 @@ Utilities
 
 ###dcv_createsamples
 
-Allows creating samples in a folder in a batch automated way.
+As a wrapper for opencv_createsamples, this utility allows creating samples in
+a folder in a batch automated way.
 
     positional arguments:
     positives             Path to folder containing source images, or file
