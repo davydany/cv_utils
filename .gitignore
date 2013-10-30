@@ -3,3 +3,7 @@ bin/*
 lib/*
 include/*
 dist/*
+.Python
+.idea/
+CVUtils.egg-info/
+build/
