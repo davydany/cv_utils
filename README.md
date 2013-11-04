@@ -51,3 +51,12 @@ a folder in a batch automated way.
     --height HEIGHT       Height (in pixels) of the output samples.
     ---info INFO          Description file of marked up images collection.
 
+
+**NOTE: ** If you use the utility to select the objects you want to detect, here are further instructions:
+
+- Pressing ESC will cause the program to stop, which can let you restart the program
+- Pressing ENTER will allow you to advance to the next image
+- Using the mouse, you can select the objects you want to select for creation of the samples.
+
+
+
