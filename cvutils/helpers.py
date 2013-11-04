@@ -9,8 +9,8 @@ ACCEPTED_IMAGE_MIMETYPES = [
     'image/pjpeg',
     'image/png',
     'image/svg+xml',
-    'image/tiff'
-
+    'image/tiff',
+    'image/bmp',
 ]
 
 
