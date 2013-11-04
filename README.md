@@ -16,9 +16,6 @@ Utilities
 As a wrapper for opencv_createsamples, this utility allows creating samples in
 a folder in a batch automated way.
 
-    ** NOTE: ** Please do not use this utility at this moment. It is still under
-    construction.
-
     positional arguments:
     positives             Path to folder containing source images, or file
                           listing paths to source images.Source object image(s)
