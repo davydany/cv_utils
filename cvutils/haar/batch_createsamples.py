@@ -10,11 +10,11 @@ logging.basicConfig(level=logging.DEBUG, format="%(msg)s")
 
 clicked = False
 
-def createsample(processfile, processfile_type, args):
+def createsample(processfile, processfile_type, args, sample_count=None):
     logging.info("Processing %s..." % processfile)
     args_dict = {
         "bg" : args.bg,
-        "num" : args.num,
+        "num" : sample_count if sample_count else args.num,
         "bgcolor" : args.bgcolor,
         "bgthresh" : args.bgthresh,
         "inv" : args.inv,
@@ -50,6 +50,7 @@ def createsample(processfile, processfile_type, args):
                 process_args.append("-%s" % k)
                 process_args.append("%s" % v)
 
+    print " ".join(process_args)
     subprocess.call(process_args)
 
 class InfoFileCreator(object):
@@ -99,12 +100,14 @@ class InfoFileCreator(object):
         self.current_processed_img_filepath = None # path of the current processed file
         self.img_selection = {}
         self.win_title = "Select the objects to detect"
+        self.sample_counter = 0
 
 
 
     def write_selections_to_diks(self):
 
-        with open(self.__abs_infofile_path, 'w') as infofile:
+
+        with open(self.__abs_infofile_path, 'wb') as infofile:
             for img_filepath, selections in self.img_selection.iteritems():
 
                 if len(selections) == 0:
@@ -113,11 +116,12 @@ class InfoFileCreator(object):
                 selection_string = ""
                 for selection in selections:
                     s = [str(i) for i in selection]
-                    selection_string = selection_string + "\t" + " ".join(s)
+                    selection_string = selection_string + "  " + " ".join(s)
+                self.sample_counter += len(selections)
 
                 pathsplit = img_filepath.split("/")
                 relpath = "%s/%s" % (pathsplit[-2], pathsplit[-1])
-                infofile.write("%s\t%d\t%s\n" % (relpath, len(selections), selection_string))
+                infofile.write("%s  %d  %s\n" % (relpath, len(selections), selection_string))
 
     def process(self):
         """
@@ -144,7 +148,6 @@ class InfoFileCreator(object):
 
 
     def mouse_callback(self, event, x, y, *args, **kwargs):
-        print x, y
 
         if event == 1: # mouse, left-click
             self.draw_started = not self.draw_started
@@ -199,7 +202,9 @@ class InfoFileCreator(object):
 
 
 
-
+    @property
+    def sample_count(self):
+        return self.sample_counter
 
 
     @property
@@ -211,7 +216,7 @@ def create_info_file(process_filepath=None, process_folderpath=None):
     info_filecreator = InfoFileCreator(process_filepath=process_filepath, process_folderpath=process_folderpath)
     info_filecreator.process()
     logging.info("Information file: %s" % info_filecreator.information_file)
-    return info_filecreator.information_file
+    return (info_filecreator.information_file, info_filecreator.sample_count)
 
 
 
@@ -227,8 +232,8 @@ def runner(args):
 
     if os.path.isdir(positives):
 
-        infofile = create_info_file(process_folderpath=positives)
-        createsample(processfile=infofile, processfile_type='info', args=args)
+        infofile, sample_count = create_info_file(process_folderpath=positives)
+        createsample(processfile=infofile, processfile_type='info', args=args, sample_count=sample_count)
 
 
     elif os.path.isfile(positives):
@@ -237,8 +242,8 @@ def runner(args):
         if guessed in ACCEPTED_IMAGE_MIMETYPES:
             createsample(processfile=positives, processfile_type='image', args=args)
         elif guessed == "text/plain":
-            infofile = create_info_file(process_filepath=positives)
-            createsample(processfile=infofile, processfile_type='info', args=args)
+            infofile, sample_count = create_info_file(process_filepath=positives)
+            createsample(processfile=infofile, processfile_type='info', args=args, sample_count=sample_count)
         else:
             raise ValueError("%s is an unsupported filetype (%s)" % (positives, guessed))
 
