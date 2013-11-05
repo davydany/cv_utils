@@ -13,6 +13,8 @@ Utilities
 
 ###dcv_createsamples
 
+![Screenshot of dcv_createsamples](http://davydany.s3.amazonaws.com/do_not_delete/dcv_createsamples_screenshot.png)
+
 As a wrapper for opencv_createsamples, this utility allows creating samples in
 a folder in a batch automated way.
 
