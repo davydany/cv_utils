@@ -16,7 +16,7 @@ setup(
         long_description=read('README.md'),
         entry_points={
                 'console_scripts' : [
-                        'dcv_createsamples = cvutils.haar.batch_createsamples:main'
+                        'cvutils_createsamples = cvutils.haar.batch_createsamples:main'
                 ]
         },
 )
