@@ -3,69 +3,119 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=640" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
-    <link rel="stylesheet" href="stylesheets/core.css" media="screen"/>
-    <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)"/>
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css"/>
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-    <script type="text/javascript" src="javascripts/modernizr.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script type="text/javascript" src="javascripts/headsmart.min.js"></script>
-    <script type="text/javascript">
-      $(document).ready(function () {
-        $('#main_content').headsmart()
-      })
-    </script>
     <title>CV Utils by davydany</title>
   </head>
 
   <body>
-    <a id="forkme_banner" href="https://github.com/davydany/cv_utils">View on GitHub</a>
-    <div class="shell">
+    <header>
+      <div class="inner">
+        <h1>CV Utils</h1>
+        <h2>Scripts that help make working with OpenCV a lot easier.</h2>
+        <a href="https://github.com/davydany/cv_utils" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
 
-      <header>
-        <span class="ribbon-outer">
-          <span class="ribbon-inner">
-            <h1>CV Utils</h1>
-            <h2>Scripts that help make working with OpenCV a lot easier.</h2>
-          </span>
-          <span class="left-tail"></span>
-          <span class="right-tail"></span>
-        </span>
-      </header>
-
-      <section id="downloads">
-        <span class="inner">
-          <a href="https://github.com/davydany/cv_utils/zipball/master" class="zip"><em>download</em> .ZIP</a><a href="https://github.com/davydany/cv_utils/tarball/master" class="tgz"><em>download</em> .TGZ</a>
-        </span>
-      </section>
-
-
-      <span class="banner-fix"></span>
-
-
-      <section id="main_content">
-        <h1>
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>
 <a name="cv-utils" class="anchor" href="#cv-utils"><span class="octicon octicon-link"></span></a>CV Utils</h1>
 
 <p><strong>I'd highly recommend that you checkout <a href="http://davydany.github.io/cv_studio/">CVStudio</a>. CVUtils will not be supported.</strong></p>
-      </section>
 
-      <footer>
-        <span class="ribbon-outer">
-          <span class="ribbon-inner">
-            <p>this project by <a href="https://github.com/davydany">davydany</a> can be found on <a href="https://github.com/davydany/cv_utils">GitHub</a></p>
-          </span>
-          <span class="left-tail"></span>
-          <span class="right-tail"></span>
-        </span>
-        <p>Generated with <a href="http://pages.github.com">GitHub Pages</a> using Merlot</p>
-        <span class="octocat"></span>
-      </footer>
+<h1>
+<a name="cv_utils" class="anchor" href="#cv_utils"><span class="octicon octicon-link"></span></a>cv_utils</h1>
 
+<p>Scripts that help make working with OpenCV a lot easier.</p>
+
+<h2>
+<a name="requires" class="anchor" href="#requires"><span class="octicon octicon-link"></span></a>Requires</h2>
+
+<p>OpenCV Installed</p>
+
+<h2>
+<a name="utilities" class="anchor" href="#utilities"><span class="octicon octicon-link"></span></a>Utilities</h2>
+
+<h3>
+<a name="dcv_createsamples" class="anchor" href="#dcv_createsamples"><span class="octicon octicon-link"></span></a>dcv_createsamples</h3>
+
+<p><img src="http://davydany.s3.amazonaws.com/do_not_delete/dcv_createsamples_screenshot.png" alt="Screenshot of dcv_createsamples"></p>
+
+<p>As a wrapper for opencv_createsamples, this utility allows creating samples in
+a folder in a batch automated way.</p>
+
+<pre><code>positional arguments:
+positives             Path to folder containing source images, or file
+                      listing paths to source images.Source object image(s)
+                      - (e.g., a company logo).
+
+optional arguments:
+-h, --help            show this help message and exit
+--bg BG               Background description file; contains a list of images
+                      which are used as a background for randomly distorted
+                      versions of the object.
+--num NUM             Number of positive samples to generate.
+--bgcolor BGCOLOR     Background color (currently grayscale images are
+                      assumed);The background color denotes the transparent
+                      color.Since there might be compression artifacts, the
+                      amount of color tolerance can be specified by
+                      -bgthresh.All pixels withing bgcolor-bgthresh and
+                      bgcolor+bgthresh range are interpreted as transparent.
+--bgthresh BGTHRESH   background_color_threshold
+--inv                 If specified, colors will be inverted.
+--randinv             If specified, colors will be inverted randomly.
+--maxidev MAXIDEV     Maximal intensity deviation of pixels in foreground
+                      samples.
+--maxxangle MAXXANGLE
+                      max_x_rotation_angle
+--maxyangle MAXYANGLE
+                      max_y_rotation_angle
+--maxzangle MAXZANGLE
+                      max_z_rotation_angle
+--show                Useful debugging option. If specified, each sample
+                      will be shown. Pressing Esc will continue the samples
+                      creation process without.
+--width WIDTH         Width (in pixels) of the output samples.
+--height HEIGHT       Height (in pixels) of the output samples.
+---info INFO          Description file of marked up images collection.
+</code></pre>
+
+<p>**NOTE: ** If you use the utility to select the objects you want to detect, here are further instructions:</p>
+
+<ul>
+<li>Pressing ESC will cause the program to stop, which can let you restart the program</li>
+<li>Pressing ENTER will allow you to advance to the next image</li>
+<li>Using the mouse, you can select the objects you want to select for creation of the samples.</li>
+</ul>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/davydany/cv_utils/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/davydany/cv_utils/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/davydany/cv_utils"></a> is maintained by <a href="https://github.com/davydany">davydany</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
     </div>
 
-    
+  
   </body>
 </html>
